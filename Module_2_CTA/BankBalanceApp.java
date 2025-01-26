@@ -10,34 +10,77 @@ public class BankBalanceApp extends JFrame implements ActionListener {
     private JButton depositButton, withdrawButton;
 
     public BankBalanceApp() {
-        account = new BankAccount(1000.0); // Default initial balance
+        account = new BankAccount(1000.0); 
 
-        setTitle("Bank Balance Application");
+        
+        setTitle("CSU Global Banking");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 200);
+        setSize(400, 250); 
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null); 
 
+      
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
+        panel.setLayout(new GridLayout(4, 1, 10, 10)); 
+        panel.setBackground(new Color(128, 0, 0)); 
 
-        balanceLabel = new JLabel("Balance: $" + account.getBalance());
+        
+        balanceLabel = new JLabel("Balance: $" + account.getBalance(), SwingConstants.CENTER);
+        balanceLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        balanceLabel.setForeground(new Color(255, 215, 0)); // Gold color
         panel.add(balanceLabel);
 
-        inputField = new JTextField();
-        panel.add(new JLabel("Enter amount: "));
-        panel.add(inputField);
+       
+        JLabel inputLabel = new JLabel("Enter amount:");
+        inputLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        inputLabel.setForeground(Color.WHITE);
+        inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+        
+        inputField = new JTextField();
+        inputField.setFont(new Font("Arial", Font.PLAIN, 16));
+        inputField.setHorizontalAlignment(JTextField.CENTER);
+        inputField.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        inputField.setBackground(Color.LIGHT_GRAY);
+
+        
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.setBackground(new Color(128, 0, 0));
+        inputPanel.add(inputLabel, BorderLayout.NORTH);
+        inputPanel.add(inputField, BorderLayout.CENTER);
+        panel.add(inputPanel);
+
+       
         depositButton = new JButton("Deposit");
         withdrawButton = new JButton("Withdraw");
+        styleButton(depositButton, new Color(255, 215, 0)); 
+        styleButton(withdrawButton, new Color(255, 69, 0)); 
 
-        panel.add(depositButton);
-        panel.add(withdrawButton);
+        
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonPanel.setBackground(new Color(128, 0, 0)); 
+        buttonPanel.add(depositButton);
+        buttonPanel.add(withdrawButton);
 
+        panel.add(buttonPanel);
+
+      
         depositButton.addActionListener(this);
         withdrawButton.addActionListener(this);
 
+        
         add(panel, BorderLayout.CENTER);
+
+        
         setVisible(true);
+    }
+
+    private void styleButton(JButton button, Color color) {
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setFont(new Font("Arial", Font.BOLD, 16));
+        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
     }
 
     @Override
@@ -57,6 +100,35 @@ public class BankBalanceApp extends JFrame implements ActionListener {
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(BankBalanceApp::new);
+    }
+}
+
+
+class BankAccount {
+    private double balance;
+
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
         }
     }
 }
