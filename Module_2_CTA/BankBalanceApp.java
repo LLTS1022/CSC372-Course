@@ -23,9 +23,12 @@ public class BankBalanceApp extends JFrame implements ActionListener {
         titlePanel.setBackground(new Color(128, 0, 0)); // Maroon background
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS)); // Vertical layout for logo, title, and tagline
 
-        // Load logo
-        ImageIcon logoIcon = new ImageIcon("JonesBankingLogo.png");
-        JLabel logoLabel = new JLabel(logoIcon);
+        // Load and resize the logo
+        ImageIcon originalIcon = new ImageIcon("JonesBankingLogo.png");
+        Image scaledImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Resize to 100x100 pixels
+        ImageIcon resizedIcon = new ImageIcon(scaledImage);
+
+        JLabel logoLabel = new JLabel(resizedIcon);
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the logo
 
         // Add main title text
@@ -35,7 +38,7 @@ public class BankBalanceApp extends JFrame implements ActionListener {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title text
 
         // Add tagline text
-        JLabel taglineLabel = new JLabel("Get your money right homie");
+        JLabel taglineLabel = new JLabel("Get Your Money Right, Hopefully ©");
         taglineLabel.setFont(new Font("Arial", Font.ITALIC, 16));
         taglineLabel.setForeground(Color.WHITE);
         taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the tagline text
@@ -53,7 +56,7 @@ public class BankBalanceApp extends JFrame implements ActionListener {
         panel.setBackground(new Color(128, 0, 0));
 
         // Balance Label
-        balanceLabel = new JLabel("Balance: $" + account.getBalance(), SwingConstants.CENTER);
+        balanceLabel = new JLabel(String.format("Balance: $%.2f" , account.getBalance()), SwingConstants.CENTER);
         balanceLabel.setFont(new Font("Arial", Font.BOLD, 20));
         balanceLabel.setForeground(new Color(255, 215, 0)); // Gold color
         panel.add(balanceLabel);
