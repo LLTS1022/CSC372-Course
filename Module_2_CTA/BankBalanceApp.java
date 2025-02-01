@@ -21,145 +21,85 @@ public class BankBalanceApp extends JFrame implements ActionListener {
         // Title Panel with Text, Logo, and Tagline
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(new Color(128, 0, 0)); // Maroon background
-        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS)); // Vertical layout for logo, title, and tagline
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS)); // Vertical layout
 
-        // Load and resize the logo
-        ImageIcon originalIcon = new ImageIcon("JonesBankingLogo.png");
-        Image scaledImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Resize to 100x100 pixels
+        // Load and resize the logo safely
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/JonesBankingLogo.png"));
+        Image scaledImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(scaledImage);
 
         JLabel logoLabel = new JLabel(resizedIcon);
-        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the logo
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Add main title text
+        // Main title
         JLabel titleLabel = new JLabel("Jones Banking");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(new Color(255, 215, 0)); // Gold color
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title text
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Add tagline text
+        // Tagline
         JLabel taglineLabel = new JLabel("Get Your Money Right, Hopefully ©");
         taglineLabel.setFont(new Font("Arial", Font.ITALIC, 16));
         taglineLabel.setForeground(Color.WHITE);
-        taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the tagline text
+        taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Add components to the title panel
+        // Add components to title panel
+        titlePanel.add(Box.createVerticalStrut(10)); // Add spacing
         titlePanel.add(logoLabel);
-        titlePanel.add(Box.createVerticalStrut(10)); // Space between logo and title
+        titlePanel.add(Box.createVerticalStrut(5));
         titlePanel.add(titleLabel);
-        titlePanel.add(Box.createVerticalStrut(5)); // Space between title and tagline
+        titlePanel.add(Box.createVerticalStrut(5));
         titlePanel.add(taglineLabel);
 
-        // Main Content Panel
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 1, 10, 10)); // Adjusted grid layout to fit links
-        panel.setBackground(new Color(128, 0, 0));
+        // Wrap titlePanel inside a JPanel with FlowLayout for centering
+        JPanel wrapperPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        wrapperPanel.add(titlePanel);
+
+        // Add title section to frame
+        add(wrapperPanel, BorderLayout.NORTH);
 
         // Balance Label
-        balanceLabel = new JLabel(String.format("Balance: $%.2f" , account.getBalance()), SwingConstants.CENTER);
-        balanceLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        balanceLabel.setForeground(new Color(255, 215, 0)); // Gold color
-        panel.add(balanceLabel);
+        balanceLabel = new JLabel("Balance: $" + account.getBalance());
+        balanceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        balanceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(balanceLabel, BorderLayout.CENTER);
 
-        // Input Field and Label
-        JLabel inputLabel = new JLabel("Enter Amount:");
-        inputLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        inputLabel.setForeground(Color.WHITE);
-        inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-        inputField = new JTextField();
-        inputField.setFont(new Font("Arial", Font.PLAIN, 16));
-        inputField.setHorizontalAlignment(JTextField.CENTER);
-        inputField.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-        inputField.setBackground(Color.LIGHT_GRAY);
-
-        JPanel inputPanel = new JPanel(new BorderLayout());
-        inputPanel.setBackground(new Color(128, 0, 0));
-        inputPanel.add(inputLabel, BorderLayout.NORTH);
-        inputPanel.add(inputField, BorderLayout.CENTER);
-        panel.add(inputPanel);
-
-        // Buttons
+        // Input and Buttons Panel
+        JPanel inputPanel = new JPanel();
+        inputField = new JTextField(10);
         depositButton = new JButton("Deposit");
         withdrawButton = new JButton("Withdraw");
-        styleButton(depositButton, new Color(255, 215, 0));
-        styleButton(withdrawButton, new Color(255, 69, 0));
-
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0));
-        buttonPanel.setBackground(new Color(128, 0, 0));
-        buttonPanel.add(depositButton);
-        buttonPanel.add(withdrawButton);
-
-        panel.add(buttonPanel);
-
-        // Links for Forgot Password and Create Account
-        JPanel linkPanel = new JPanel();
-        linkPanel.setBackground(new Color(128, 0, 0));
-        linkPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        JLabel forgotPasswordLink = new JLabel("<html><a href=''>Forgot Password?</a></html>");
-        forgotPasswordLink.setFont(new Font("Arial", Font.PLAIN, 14));
-        forgotPasswordLink.setForeground(new Color(255, 215, 0)); // Gold color
-        forgotPasswordLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        forgotPasswordLink.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JOptionPane.showMessageDialog(null, "Redirecting to Forgot Password page...");
-            }
-        });
-
-        JLabel createAccountLink = new JLabel("<html><a href=''>Create an Account</a></html>");
-        createAccountLink.setFont(new Font("Arial", Font.PLAIN, 14));
-        createAccountLink.setForeground(new Color(255, 215, 0)); // Gold color
-        createAccountLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        createAccountLink.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JOptionPane.showMessageDialog(null, "Redirecting to Create Account page...");
-            }
-        });
-
-        // Add links to the link panel
-        linkPanel.add(forgotPasswordLink);
-        linkPanel.add(Box.createHorizontalStrut(20)); // Space between links
-        linkPanel.add(createAccountLink);
-
-        // Add link panel to the main panel
-        panel.add(linkPanel);
 
         depositButton.addActionListener(this);
         withdrawButton.addActionListener(this);
 
-        // Add panels to frame
-        add(titlePanel, BorderLayout.NORTH);
-        add(panel, BorderLayout.CENTER);
+        inputPanel.add(new JLabel("Amount: "));
+        inputPanel.add(inputField);
+        inputPanel.add(depositButton);
+        inputPanel.add(withdrawButton);
+
+        add(inputPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    private void styleButton(JButton button, Color color) {
-        button.setBackground(color);
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.BOLD, 16));
-        button.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        String action = e.getActionCommand();
         try {
             double amount = Double.parseDouble(inputField.getText());
 
-            if (action.equals("Deposit")) {
+            if (e.getSource() == depositButton) {
                 account.deposit(amount);
-            } else if (action.equals("Withdraw")) {
-                account.withdraw(amount);
+            } else if (e.getSource() == withdrawButton) {
+                if (!account.withdraw(amount)) {
+                    JOptionPane.showMessageDialog(this, "Insufficient funds!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
 
             balanceLabel.setText("Balance: $" + account.getBalance());
             inputField.setText("");
-
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid amount. Enter a number.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -168,15 +108,12 @@ public class BankBalanceApp extends JFrame implements ActionListener {
     }
 }
 
+// BankAccount Class (Ensure this is in the same package)
 class BankAccount {
     private double balance;
 
     public BankAccount(double initialBalance) {
         this.balance = initialBalance;
-    }
-
-    public double getBalance() {
-        return balance;
     }
 
     public void deposit(double amount) {
@@ -185,9 +122,15 @@ class BankAccount {
         }
     }
 
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
+            return true;
         }
+        return false;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }
