@@ -22,8 +22,8 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
         // Create Text Area
         textArea = new JTextArea();
         textArea.setEditable(false);
-        textArea.setOpaque(false);
-        textArea.setBackground(new Color(0, 0, 0, 0));
+        textArea.setOpaque(true);  // Make it visible
+        textArea.setBackground(Color.WHITE); // Default background
         add(new JScrollPane(textArea), BorderLayout.CENTER);
 
         // Create Menu Bar
@@ -33,7 +33,7 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
         // Create Menu Items
         dateTimeMenuItem = new JMenuItem("Print Date & Time");
         saveToFileMenuItem = new JMenuItem("Save to File");
-        changeColorMenuItem = new JMenuItem("Change Background Color");
+        changeColorMenuItem = new JMenuItem("Change Background Color"); // No initial color
         exitMenuItem = new JMenuItem("Exit");
 
         // Add Action Listener to Menu Items
@@ -52,18 +52,20 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
         menuBar.add(menu);
         setJMenuBar(menuBar);
 
-        // Set initial background color to white
+        // **Set initial background color**
         getContentPane().setBackground(Color.WHITE);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dateTimeMenuItem) {
+            // Print Date & Time in Text Box
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dateTime = formatter.format(new Date());
             textArea.setText("Current Date & Time: " + dateTime);
         } 
         else if (e.getSource() == saveToFileMenuItem) {
+            // Write Text Box Contents to File
             try (FileWriter writer = new FileWriter("log.txt")) {
                 writer.write(textArea.getText());
                 JOptionPane.showMessageDialog(this, "Text saved to log.txt", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -72,30 +74,40 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
             }
         } 
         else if (e.getSource() == changeColorMenuItem) {
+            // Generate a new random green hue
             Color newGreenHue = generateRandomGreenHue();
+
+            // Change Background Color
             getContentPane().setBackground(newGreenHue);
-            textArea.setBackground(newGreenHue);
+            textArea.setBackground(newGreenHue);  // Ensure text area blends in
+
+            // Update menu text with the new color hex
             changeColorMenuItem.setText("Background: " + getHexColor(newGreenHue));
+
             JOptionPane.showMessageDialog(this, "Background color set to " + getHexColor(newGreenHue),
                     "Color Changed", JOptionPane.INFORMATION_MESSAGE);
         } 
         else if (e.getSource() == exitMenuItem) {
+            // Exit the Program
             System.exit(0);
         }
     }
 
+    // Method to Generate a Random Green Hue
     private Color generateRandomGreenHue() {
         Random rand = new Random();
-        int red = rand.nextInt(56);
-        int green = 150 + rand.nextInt(106);
-        int blue = rand.nextInt(56);
+        int red = rand.nextInt(56);       // Low red value (0-55)
+        int green = 150 + rand.nextInt(106); // Strong green value (150-255)
+        int blue = rand.nextInt(56);       // Low blue value (0-55)
         return new Color(red, green, blue);
     }
 
+    // Convert Color to Hex for Display
     private String getHexColor(Color color) {
         return String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
     }
 
+    // Main Method
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MenuInterfaceApp().setVisible(true));
     }
