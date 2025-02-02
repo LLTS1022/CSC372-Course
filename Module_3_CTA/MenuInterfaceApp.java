@@ -13,13 +13,13 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
     private JMenuItem dateTimeMenuItem, saveToFileMenuItem, changeColorMenuItem, exitMenuItem;
 
     public MenuInterfaceApp() {
-        // Frame Settings
-        setTitle("User Interface with Menu");
+        // this will be the frame Settings
+        setTitle("UI with Menu");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create Text Area
+        // here I create Text Area
         textArea = new JTextArea();
         textArea.setEditable(false);
         textArea.setOpaque(true);  // Make it visible
@@ -52,20 +52,20 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
         menuBar.add(menu);
         setJMenuBar(menuBar);
 
-        // **Set initial background color**
+        // **Make SURE to set the initial background color!!!!!**
         getContentPane().setBackground(Color.WHITE);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dateTimeMenuItem) {
-            // Print Date & Time in Text Box
+            // Print out the Date & Time in Text Box
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dateTime = formatter.format(new Date());
             textArea.setText("Current Date & Time: " + dateTime);
         } 
         else if (e.getSource() == saveToFileMenuItem) {
-            // Write Text Box Contents to File
+            // Write the Text Box Contents to File
             try (FileWriter writer = new FileWriter("log.txt")) {
                 writer.write(textArea.getText());
                 JOptionPane.showMessageDialog(this, "Text saved to log.txt", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -85,7 +85,7 @@ public class MenuInterfaceApp extends JFrame implements ActionListener {
             changeColorMenuItem.setText("Background: " + getHexColor(newGreenHue));
 
             JOptionPane.showMessageDialog(this, "Background color set to " + getHexColor(newGreenHue),
-                    "Color Changed", JOptionPane.INFORMATION_MESSAGE);
+                    "Tada... the color has been changed", JOptionPane.INFORMATION_MESSAGE);
         } 
         else if (e.getSource() == exitMenuItem) {
             // Exit the Program
