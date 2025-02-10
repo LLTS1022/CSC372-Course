@@ -8,7 +8,7 @@ This project demonstrates object-oriented programming (OOP) principles, includin
 The program consists of an abstract class _Shape_ and three subclasses: _Rectangle_, _Circle_, and _Triangle_. 
 The _ShapeArray_ class serves as the driver program to test these implementations.
 
-                The goal of this project is to:
+The goal of this project is to:
 Implement an abstract class (Shape) with abstract methods for area() and perimeter().
 Create concrete subclasses (Rectangle, Circle, and Triangle) that provide their own implementations of area() and perimeter().
 Store instances of different shapes in an array (shapeArray) and iterate through them.
