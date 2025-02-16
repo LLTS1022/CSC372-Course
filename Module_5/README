@@ -1,1 +1,13 @@
+Option #1
+Implementing Recursion to Provide a Product
+
+Author: Raishawn Jones
+Colorado State University – Global Campus
+CSC372: Computer Programming II
+Dr. Andy Ramlatchan
+February 16, 2025
+
+
+Introduction
+In this assignment, I created a program that will allow the end-user to enter 5 numbers. This program will then provide the product of all 5 numbers using a recursive method.
 
