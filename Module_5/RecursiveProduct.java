@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class RecursiveProduct {
@@ -24,9 +25,13 @@ public class RecursiveProduct {
     //Calculate the product using a recursive method
     int result = product(numbers, numbers.length - 1);
 
-    //Display the result in the console.
-    System.out.println("The product of the numbers is: " + result);
+    //I want to format the output with commas to meake it easier to read
+    NumberFormat formatter = NumberFormat.getInstance();
+    String formattedResult = formatter.format(result);
     
+
+    //Display the result in the console.
+    System.out.println("The product of the numbers is: " + formattedResult);
     scanner.close(); //
     };
 };
