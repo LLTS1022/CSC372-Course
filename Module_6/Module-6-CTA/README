@@ -1,0 +1,15 @@
+/*In Student.java, an ArrayList of 10 students is created. Each student is instantiated with a roll number(int), name(String), and address(String).
+ * 
+ * The selectionSort method is used with a compartor in the SelectionSort class.
+ * First, the list is sorted by name using NameCompartor.
+ * Then, the list is sorted by roll number using RollnoCompartor.
+ * 
+ * The program with then print the list of students before sorting, after sorting by name, and after sorting by roll number.
+ * 
+ * This program meets the program specs by using a custom selection sort algorithm and seperate compapartor classes without using the built-in Java sorting method.
+ * 
+ */
+
+
+
+
