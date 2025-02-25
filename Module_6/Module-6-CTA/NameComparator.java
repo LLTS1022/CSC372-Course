@@ -1,3 +1,9 @@
-public class NameComparator {
-    
+//THis comparator class is used to implement Comparator<Student> to compare Student objects based on their names.
+import java.util.Comparator;
+
+public class NameComparator implements Comparator<Student> {
+    @Override
+    public int compare(Student s1, Student s2) {
+        return s1.name.compareTo(s2.name);
+    }
 }
