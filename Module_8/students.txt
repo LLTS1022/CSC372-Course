@@ -1,0 +1,3 @@
+Name: Jon, Address: Doe, GPA: 4.0
+Name: R Jones, Address: 555 Legion Dr, GPA: 3.7
+Name: This, Address: Guy, GPA: 4.0
